@@ -2,4 +2,4 @@
 
 <div class="fotorama">
      $forall photo <- photos
-             <li> #{photo}
+             <img src=@{PhotoR gallery photo}>
