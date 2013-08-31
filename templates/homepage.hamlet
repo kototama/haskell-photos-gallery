@@ -38,3 +38,5 @@
     You can run your tests by doing: <pre>yesod test</pre>
 
   <li> My modifications. _{MsgBye}
+
+  <li> Upload route <a href="@{UploadR}">Upload</a>
