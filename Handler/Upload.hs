@@ -1,10 +1,12 @@
 {-# LANGUAGE TupleSections, OverloadedStrings #-}
 module Handler.Upload where
 
-import Import
 import Data.Text (unpack)
-import qualified Data.Text.IO as T
 import Yesod.Core.Types
+
+import Import
+
+
 
 getUploadR :: Handler Html
 getUploadR = do
@@ -15,7 +17,7 @@ getUploadR = do
       addStylesheet $ StaticR css_dropzone_css
       addScript $ StaticR js_dropzone_js
       aDomId <- newIdent
-      setTitle "Welcome To Yesod!"
+      setTitle "Upload page"
       $(widgetFile "uploadpage")
 
 displayUploadPage :: Handler Html
@@ -25,13 +27,15 @@ displayUploadPage = defaultLayout $ do
 
 copyFileToGallery :: Text -> ([Char] -> IO ()) -> HandlerT App IO Html
 copyFileToGallery fName fMove = do
-     lift $ fMove ("/tmp/upload/" ++ (unpack fName))
-     displayUploadPage
+    extra <- getExtra
+    let galleryPath = extraGalleryPath extra
+    let path = (unpack galleryPath) ++ "/" ++ (unpack fName)
+    lift $ fMove $ path
+    displayUploadPage
 
 postUploadR :: Handler Html
 postUploadR = do
      -- dropzone generates <input type="file" name="file" />
-
      fileInfo <- runInputPost $ ireq fileField "file"
      let FileInfo fName fContentType _ fMove = fileInfo
 
