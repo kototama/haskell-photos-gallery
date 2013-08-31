@@ -1,5 +1,8 @@
 <h1> _{MsgGalleryPage} #{gallery}
 
-<div class="fotorama">
+<div class="fotorama"
+     data-width="100%"
+     data-height="100%"
+     data-nav="thumbs">
      $forall photo <- photos
              <img src=@{PhotoR gallery photo}>
