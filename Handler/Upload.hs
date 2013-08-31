@@ -49,7 +49,8 @@ postUploadR = do
 
      let FileInfo fName fContentType _ fMove = fileInfo
      let invalidGalleryName = (isInfixOf ".." gallery) ||
-                              (isInfixOf " " gallery)
+                              (isInfixOf " " gallery) ||
+                              (isInfixOf "/" gallery)
 
      when invalidGalleryName $
        invalidArgs ["Invalid gallery name"]

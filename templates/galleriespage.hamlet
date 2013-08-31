@@ -1,0 +1,6 @@
+<h1> _{MsgGalleriesPage}
+
+<ol>
+  $forall gallery <- galleries
+    <ul>
+        <a href="">#{gallery}</a>

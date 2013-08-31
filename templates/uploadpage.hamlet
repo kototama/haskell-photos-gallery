@@ -1,6 +1,6 @@
 <h1> _{MsgUploadPage}
 
-<div>You can upload images files (PNG, GIF, JPEG) or zip files.
+<div>You can upload images files (PNG, JPEG).
 
 <div>
 <form action="/upload"

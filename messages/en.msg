@@ -1,3 +1,4 @@
 Hello: Hello
 Bye: Good Bye!
-UploadPage: Upload Page
+UploadPage: Upload images!
+GalleriesPage: Galleries

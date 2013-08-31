@@ -6,3 +6,4 @@
 
 / HomeR GET POST
 /upload UploadR GET POST
+/galleries GalleriesR GET
