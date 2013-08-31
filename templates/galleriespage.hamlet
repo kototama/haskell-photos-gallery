@@ -3,4 +3,4 @@
 <ol>
   $forall gallery <- galleries
     <ul>
-        <a href="">#{gallery}</a>
+        <a href="@{GalleryR gallery}">#{gallery}</a>

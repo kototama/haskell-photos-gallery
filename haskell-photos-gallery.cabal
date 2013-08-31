@@ -22,6 +22,7 @@ library
                      Handler.Home
                      Handler.Upload
                      Handler.Galleries
+                     Handler.Gallery
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT

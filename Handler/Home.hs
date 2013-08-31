@@ -5,7 +5,7 @@ import Import
 import qualified Data.Text.IO as T
 import Yesod.Core.Types
 
-  -- This is a handler function for the GET request method on the HomeR
+-- This is a handler function for the GET request method on the HomeR
 -- resource pattern. All of your resource patterns are defined in
 -- config/routes
 --
