@@ -1,0 +1,8 @@
+<h1> _{MsgUploadPage}
+
+<div>You can upload images files (PNG, GIF, JPEG) or zip files.
+
+<div>
+<form action="/upload"
+      class="dropzone"
+      id="my-awesome-dropzone">
