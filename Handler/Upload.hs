@@ -1,18 +1,17 @@
 {-# LANGUAGE TupleSections, OverloadedStrings #-}
 module Handler.Upload where
 
-import Data.Text (unpack)
+import Data.Text (unpack, isInfixOf)
+import qualified Data.Text.IO as T
+import System.Directory (createDirectory, doesDirectoryExist)
 import Yesod.Core.Types
+import Control.Monad (when)
 
 import Import
 
 
-
 getUploadR :: Handler Html
 getUploadR = do
-    (formWidget, formEnctype) <- generateFormPost uploadForm
-    let submission = Nothing :: Maybe (FileInfo, Text)
-        handlerName = "getUploadR" :: Text
     defaultLayout $ do
       addStylesheet $ StaticR css_dropzone_css
       addScript $ StaticR js_dropzone_js
@@ -25,26 +24,37 @@ displayUploadPage = defaultLayout $ do
   setTitle "Upload page"
   $(widgetFile "uploadpage")
 
-copyFileToGallery :: Text -> ([Char] -> IO ()) -> HandlerT App IO Html
-copyFileToGallery fName fMove = do
+copyFileToGallery :: Text -> Text -> ([Char] -> IO ()) -> HandlerT App IO Html
+copyFileToGallery gallery fName fMove = do
     extra <- getExtra
-    let galleryPath = extraGalleryPath extra
-    let path = (unpack galleryPath) ++ "/" ++ (unpack fName)
+    let galleriesPath = extraGalleriesPath extra
+    let galleryPath = (unpack galleriesPath) ++ "/" ++ (unpack gallery)
+    galleryExists <- lift $ doesDirectoryExist galleryPath
+
+    when (not galleryExists) $
+       lift $ createDirectory galleryPath
+
+    let path = galleryPath
+               ++ "/"
+               ++ (unpack fName)
     lift $ fMove $ path
     displayUploadPage
 
 postUploadR :: Handler Html
 postUploadR = do
      -- dropzone generates <input type="file" name="file" />
-     fileInfo <- runInputPost $ ireq fileField "file"
+     (fileInfo, gallery) <- runInputPost $ (,)
+                            <$> ireq fileField "file"
+                            <*> ireq textField "gallery"
+
      let FileInfo fName fContentType _ fMove = fileInfo
+     let invalidGalleryName = (isInfixOf ".." gallery) ||
+                              (isInfixOf " " gallery)
+
+     when invalidGalleryName $
+       invalidArgs ["Invalid gallery name"]
 
      case (unpack fContentType) of
-       "image/png" -> copyFileToGallery fName fMove
-       "image/jpeg" -> copyFileToGallery fName fMove
+       "image/png" -> copyFileToGallery gallery fName fMove
+       "image/jpeg" -> copyFileToGallery gallery fName fMove
        _ -> invalidArgs ["Only PNG, JPEG and Zip files are accepted"]
-
-uploadForm :: Form (FileInfo, Text)
-uploadForm = renderDivs $ (,)
-    <$> fileAFormReq "Choose a file"
-    <*> areq textField "What's on the file?" Nothing

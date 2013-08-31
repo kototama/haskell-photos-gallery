@@ -6,3 +6,4 @@
 <form action="/upload"
       class="dropzone"
       id="my-awesome-dropzone">
+  Gallery name: <input type="text" value="holidays" name="gallery">
