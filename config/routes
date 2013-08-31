@@ -8,3 +8,4 @@
 /upload UploadR GET POST
 /galleries GalleriesR GET
 /galleries/#Text GalleryR GET
+/galleries/#Text/#Text PhotoR GET
