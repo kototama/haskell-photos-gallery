@@ -19,7 +19,9 @@ getUploadR = do
 
 postUploadR :: Handler Html
 postUploadR = do
-     fileInfo <- runInputGet $ ireq fileField "Select file"
+     -- dropzone generates <input type="file" name="file" />
+
+     fileInfo <- runInputPost $ ireq fileField "file"
      let FileInfo fName fContentType fSourceRaw fMove = fileInfo
 
      defaultLayout $ do
@@ -27,7 +29,7 @@ postUploadR = do
        aDomId <- newIdent
        lift $ putStr "Submission ="
        lift $ T.putStr fName
-       -- lift $ fMove "/tmp/thamer"
+       lift $ fMove "/tmp/thamer"
 
        setTitle "Welcome To Yesod!"
        $(widgetFile "uploadpage")
