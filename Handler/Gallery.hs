@@ -2,7 +2,6 @@ module Handler.Gallery where
 
 import System.Directory
 import Data.Text (unpack, pack)
-import qualified Data.ByteString as B
 
 
 import Import

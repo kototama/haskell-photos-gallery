@@ -2,7 +2,6 @@
 module Handler.Upload where
 
 import Data.Text (unpack, isInfixOf)
-import qualified Data.Text.IO as T
 import System.Directory (createDirectory, doesDirectoryExist)
 import Yesod.Core.Types
 import Control.Monad (when)
