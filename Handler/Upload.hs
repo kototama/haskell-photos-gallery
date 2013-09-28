@@ -23,7 +23,7 @@ displayUploadPage = defaultLayout $ do
   setTitle "Upload page"
   $(widgetFile "uploadpage")
 
-copyFileToGallery :: Text -> Text -> ([Char] -> IO ()) -> HandlerT App IO Html
+copyFileToGallery :: Text -> Text -> ([Char] -> IO ()) -> Handler Html
 copyFileToGallery gallery fName fMove = do
     extra <- getExtra
     let galleriesPath = extraGalleriesPath extra
