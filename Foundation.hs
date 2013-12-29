@@ -18,7 +18,7 @@ import Settings (widgetFile, Extra (..))
 import Model
 import Text.Jasmine (minifym)
 import Text.Hamlet (hamletFile)
-import System.Log.FastLogger (Logger)
+import Yesod.Core.Types (Logger)
 import Data.Text (Text)
 
 -- | The site argument for your application. This can be a good place to
@@ -27,7 +27,7 @@ import Data.Text (Text)
 -- access to the data present here.
 data App = App
     { settings :: AppConfig DefaultEnv Extra
-    , getStatic :: Static -- ^ Settings for static file serving.
+   , getStatic :: Static -- ^ Settings for static file serving.
     , connPool :: Database.Persist.PersistConfigPool Settings.PersistConf -- ^ Database connection pool.
     , httpManager :: Manager
     , persistConfig :: Settings.PersistConf

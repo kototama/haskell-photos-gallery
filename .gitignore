@@ -1,0 +1,6 @@
+dist**
+.cabal-sandbox**
+/config/client_session_key.aes
+/haskell-photos-gallery.sqlite3
+yesod-devel**
+static/tmp**
